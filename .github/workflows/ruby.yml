@@ -19,7 +19,7 @@ jobs:
         ruby-version: 2.6.x
 
     - name: bundle install
-      run: bundle install --jobs 4 --retry 3
+      run: gem install bundler && bundle install --jobs 4 --retry 3
 
     - name: Write application credentials
       run: echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}' | base64 -d > /tmp/key.json
