@@ -2,6 +2,11 @@ module GoogleCloudEnvSecrets
   def self.all
     @secrets = nil unless self.configuration.cache_secrets
     @secrets ||= begin
+        # Skip if not running on Google Cloud and credentials are not set explicitly
+        if self.configuration.credentials.nil? && Google::Cloud.env.project_id.nil?
+          return {}
+        end
+
         # Configure and initialize
         # https://googleapis.dev/ruby/google-cloud-secret_manager/latest/Google/Cloud/SecretManager.html
         Google::Cloud::SecretManager.configure do |config|
@@ -38,12 +43,12 @@ module GoogleCloudEnvSecrets
 
         secrets
       end
-    @secrets
+
+    @secrets || {}
   end
 
   def self.find(name)
-    self.all # make sure we have the secrets loaded
-    @secrets[name.to_s]
+    self.all[name.to_s]
   end
 
   def self.inject_env!(secrets = {})
