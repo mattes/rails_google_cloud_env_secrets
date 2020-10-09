@@ -29,3 +29,10 @@ Configure this gem with environment vars:
 | `GOOGLE_PROJECT`                 | Manually set the Google project. Automatically detected otherwise. |
 | `GOOGLE_SECRETS_PREFIX`          | Only load secrets that start with prefix.                          |
 
+
+## Required IAM Roles
+
+```
+Secret Manager Secret Accessor
+Secret Manager Viewer
+```
