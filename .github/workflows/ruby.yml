@@ -28,6 +28,7 @@ jobs:
       run: GOOGLE_APPLICATION_CREDENTIALS=/tmp/key.json GOOGLE_PROJECT=${{ secrets.GOOGLE_PROJECT }} bin/test
 
     - name: Publish to RubyGems
+      if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
       run: |
         mkdir -p $HOME/.gem
         touch $HOME/.gem/credentials
