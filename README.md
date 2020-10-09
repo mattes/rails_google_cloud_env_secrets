@@ -1,8 +1,6 @@
-# GoogleCloudEnvSecrets
-Short description and motivation.
+# Google Cloud ENV Secrets
 
-## Usage
-How to use my plugin.
+Load Google Cloud Secrets into ENV.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -21,8 +19,13 @@ Or install it yourself as:
 $ gem install google_cloud_env_secrets
 ```
 
-## Contributing
-Contribution directions go here.
+## Usage
 
-## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+Configure this gem with environment vars:
+
+| Variable                         | Description                                                                                                                                                                                                                                          |
+|----------------------------------|--------------------------------------------------------------------|
+| `GOOGLE_APPLICATION_CREDENTIALS` | Manually set path to Google Application Credentials.               |
+| `GOOGLE_PROJECT`                 | Manually set the Google project. Automatically detected otherwise. |
+| `GOOGLE_SECRETS_PREFIX`          | Only load secrets that start with prefix.                          |
+

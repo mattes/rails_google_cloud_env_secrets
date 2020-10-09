@@ -1,4 +1,5 @@
-# desc "Explaining what the task does"
-# task :google_cloud_env_secrets do
-#   # Task goes here
-# end
+desc "Fetch Google Cloud Secret"
+task :google_cloud_secret do
+  name = ARGV[1]
+  puts GoogleCloudEnvSecrets.find(name)
+end

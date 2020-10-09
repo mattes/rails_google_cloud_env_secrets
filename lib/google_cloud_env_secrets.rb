@@ -1,5 +1,5 @@
+require "google/cloud/env"
+require "google/cloud/secret_manager"
+require "google_cloud_env_secrets/config"
+require "google_cloud_env_secrets/secrets"
 require "google_cloud_env_secrets/railtie"
-
-module GoogleCloudEnvSecrets
-  # Your code goes here...
-end
