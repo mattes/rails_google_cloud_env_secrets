@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 6.0.3", ">= 6.0.3.4"
+  spec.add_dependency "rails", "~> 6"
   spec.add_dependency "google-cloud-secret_manager", "~> 1.0.0"
   spec.add_dependency "google-cloud-env", "~> 1.3.3"
   spec.add_dependency "concurrent-ruby", "~> 1.1.7"
