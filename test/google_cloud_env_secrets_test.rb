@@ -45,16 +45,23 @@ class GoogleCloudEnvSecrets::Test < ActiveSupport::TestCase
   end
 
   test "inject_env! with force" do
-    h = {}
-    GoogleCloudEnvSecrets.inject_env!({ "foo": "bar" }, true, h)
+    h = { "foo" => "bar" }
+    GoogleCloudEnvSecrets.inject_env!({ "foo": "updated" }, true, h)
     assert_equal 1, h.size
-    assert_equal "bar", h["foo"]
+    assert_equal "updated", h["foo"]
   end
 
   test "inject_env! without force" do
-    h = { "foo" => "bar" }
-    GoogleCloudEnvSecrets.inject_env!({ "foo": "updated" }, false, h)
-    assert_equal 1, h.size
+    h = { "foo" => "bar", "bar" => nil, "abc" => "" }
+    GoogleCloudEnvSecrets.inject_env!({ "foo": "updated", "bar": "updated", "abc" => "updated" }, false, h)
+    assert_equal 3, h.size
     assert_equal "bar", h["foo"]
+    assert_equal "updated", h["bar"]
+    assert_equal "", h["abc"]
+  end
+
+  test "inject_env! injects into ENV" do
+    GoogleCloudEnvSecrets.inject_env!({ "GOOGLE_SECRET_TEST": "foobar" }, true)
+    assert_equal "foobar", ENV["GOOGLE_SECRET_TEST"]
   end
 end

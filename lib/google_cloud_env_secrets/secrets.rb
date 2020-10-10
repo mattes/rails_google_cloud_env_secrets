@@ -57,7 +57,7 @@ module GoogleCloudEnvSecrets
       if force
         env[name] = value
       else
-        env[name] unless env.has_key?(name)
+        env[name] ||= value
       end
     end
   end
