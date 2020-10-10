@@ -15,15 +15,15 @@ module GoogleCloudEnvSecrets
   def self.load
     GoogleCloudEnvSecrets.configure do |config|
       config.credentials = ENV["GOOGLE_APPLICATION_CREDENTIALS"] || nil
-      config.project = ENV["GOOGLE_PROJECT"] || Google::Cloud.env.project_id
+      config.project = ENV["GOOGLE_PROJECT"] || GoogleCloudEnvSecrets.parse_project_from_credentials(config.credentials) || Google::Cloud.env.project_id
       config.prefix = ENV["GOOGLE_SECRETS_PREFIX"] || nil
 
-      if ENV.has_key?("GOOGLE_SECRETS_FORCE")
-        config.force = ENV["GOOGLE_SECRETS_FORCE"]&.to_s&.downcase == "true"
+      if ENV.has_key?("GOOGLE_SECRETS_OVERLOAD")
+        config.overload = ENV["GOOGLE_SECRETS_OVERLOAD"]&.to_s&.downcase == "true"
       end
     end
 
     secrets = GoogleCloudEnvSecrets.all
-    GoogleCloudEnvSecrets.inject_env!(secrets, GoogleCloudEnvSecrets.configuration.force)
+    GoogleCloudEnvSecrets.inject_env!(secrets, GoogleCloudEnvSecrets.configuration.overload)
   end
 end

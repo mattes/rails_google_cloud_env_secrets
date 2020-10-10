@@ -10,7 +10,7 @@ class GoogleCloudEnvSecrets::Test < ActiveSupport::TestCase
     GoogleCloudEnvSecrets.configure do |config|
       config.prefix = nil
       config.cache_secrets = false
-      config.force = true
+      config.overload = true
     end
 
     secrets = GoogleCloudEnvSecrets.all
@@ -25,7 +25,7 @@ class GoogleCloudEnvSecrets::Test < ActiveSupport::TestCase
     GoogleCloudEnvSecrets.configure do |config|
       config.prefix = "PREFIX"
       config.cache_secrets = false
-      config.force = true
+      config.overload = true
     end
 
     secrets = GoogleCloudEnvSecrets.all
@@ -38,20 +38,20 @@ class GoogleCloudEnvSecrets::Test < ActiveSupport::TestCase
     GoogleCloudEnvSecrets.configure do |config|
       config.prefix = nil
       config.cache_secrets = true
-      config.force = true
+      config.overload = true
     end
 
     assert "value for my secret 1", GoogleCloudEnvSecrets.find("my-secret-1")
   end
 
-  test "inject_env! with force" do
+  test "inject_env! with overload" do
     h = { "foo" => "bar" }
     GoogleCloudEnvSecrets.inject_env!({ "foo": "updated" }, true, h)
     assert_equal 1, h.size
     assert_equal "updated", h["foo"]
   end
 
-  test "inject_env! without force" do
+  test "inject_env! without overload" do
     h = { "foo" => "bar", "bar" => nil, "abc" => "" }
     GoogleCloudEnvSecrets.inject_env!({ "foo": "updated", "bar": "updated", "abc" => "updated" }, false, h)
     assert_equal 3, h.size
