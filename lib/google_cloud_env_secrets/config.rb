@@ -4,9 +4,11 @@ module GoogleCloudEnvSecrets
     attr_accessor :credentials
     attr_accessor :cache_secrets
     attr_accessor :prefix
+    attr_accessor :force
 
     def initialize
       @cache_secrets = true
+      @force = true
     end
   end
 

@@ -3,6 +3,9 @@ name: Ruby Gem
 on:
   push:
     branches: [ main ]
+    tags:
+      - 'v*.*.*'
+
   pull_request:
     branches: [ main ]
 
@@ -28,7 +31,7 @@ jobs:
       run: GOOGLE_APPLICATION_CREDENTIALS=/tmp/key.json GOOGLE_PROJECT=${{ secrets.GOOGLE_PROJECT }} bin/test
 
     - name: Publish to RubyGems
-      if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+      if: contains(github.ref, 'refs/tags/v')
       run: |
         mkdir -p $HOME/.gem
         touch $HOME/.gem/credentials

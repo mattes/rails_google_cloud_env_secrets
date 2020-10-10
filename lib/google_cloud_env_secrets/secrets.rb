@@ -51,9 +51,14 @@ module GoogleCloudEnvSecrets
     self.all[name.to_s]
   end
 
-  def self.inject_env!(secrets = {})
+  def self.inject_env!(secrets = {}, force = true, env = ENV)
     secrets.each do |name, value|
-      ENV[name.to_s] = value
+      name = name.to_s
+      if force
+        env[name] = value
+      else
+        env[name] unless env.has_key?(name)
+      end
     end
   end
 end
