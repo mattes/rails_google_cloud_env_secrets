@@ -1,5 +1,9 @@
 desc "Fetch Google Cloud Secret"
 task :google_cloud_secret do
-  name = ARGV[1]
-  puts GoogleCloudEnvSecrets.find(name)
+  name = ENV["NAME"].strip
+
+  fail "#{name} not found" unless GoogleCloudEnvSecrets.exists?(name)
+
+  $stdout.sync = true
+  print GoogleCloudEnvSecrets.find(name)
 end

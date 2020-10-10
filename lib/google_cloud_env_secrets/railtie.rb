@@ -5,6 +5,10 @@ module GoogleCloudEnvSecrets
     config.before_configuration do
       GoogleCloudEnvSecrets.load
     end
+
+    rake_tasks do
+      load "tasks/google_cloud_env_secrets_tasks.rake"
+    end
   end
 
   # load Google Secrets into ENV
