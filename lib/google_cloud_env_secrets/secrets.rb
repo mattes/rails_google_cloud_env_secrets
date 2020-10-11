@@ -10,10 +10,12 @@ module GoogleCloudEnvSecrets
         # Configure and initialize
         # https://googleapis.dev/ruby/google-cloud-secret_manager/latest/Google/Cloud/SecretManager.html
         Google::Cloud::SecretManager.configure do |config|
-          if File.exist?(self.configuration.credentials)
-            config.credentials = self.configuration.credentials # load by file
-          else
-            config.credentials = JSON.parse(self.configuration.credentials) # load data
+          if self.configuration.credentials
+            if File.exist?(self.configuration.credentials)
+              config.credentials = self.configuration.credentials # load by file
+            else
+              config.credentials = JSON.parse(self.configuration.credentials) # load data
+            end
           end
         end
 
