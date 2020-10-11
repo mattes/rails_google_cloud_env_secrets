@@ -24,8 +24,13 @@ module GoogleCloudEnvSecrets
   end
 
   def self.parse_project_from_credentials(credentials)
-    j = JSON.load(File.open(credentials))
-    j["project_id"]
+    if File.exist?(credentials)
+      j = JSON.parse(File.read(credentials))
+      return j["project_id"]
+    else
+      j = JSON.parse(credentials)
+      return j["project_id"]
+    end
   rescue
     nil
   end
